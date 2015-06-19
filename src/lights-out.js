@@ -47,12 +47,13 @@ var Board = React.createClass({
   getInitialState: function() {
     return {
       victory : false,
-      data    : this.randomBoard()
+      data    : this.randomBoard(),
+      moves   : 0
     }
   },
 
   reset: function() {
-    this.setState({ victory: false, data: this.randomBoard() });
+    this.setState({ victory: false, data: this.randomBoard(), moves: 0 });
   },
 
   buildBoard: function(cb) {
@@ -97,9 +98,9 @@ var Board = React.createClass({
     });
 
     if (victory) {
-      this.setState({ victory: true, data: newData });
+      this.setState({ victory: true, data: newData, moves: this.state.moves + 1 });
     } else {
-      this.setState({ data: newData });
+      this.setState({ data: newData, moves: this.state.moves + 1 });
     }
   },
 
@@ -117,6 +118,7 @@ var Board = React.createClass({
     return (
       <div className={ classes }>
         { rows }
+        <span>Moves: { this.state.moves }</span>
         <VictoryButton clickHandler={ this.reset } />
       </div>
     );
