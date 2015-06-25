@@ -1,9 +1,9 @@
-var React         = require("react");
-var Row           = require("./row");
-var VictoryButton = require("./victoryButton");
+let React         = require("react");
+let Row           = require("./row");
+let VictoryButton = require("./victoryButton");
 
 module.exports = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return {
       size    : 3,
       victory : false,
@@ -12,17 +12,17 @@ module.exports = React.createClass({
     }
   },
 
-  reset: function() {
+  reset() {
     this.setState({ victory: false, data: this.randomBoard(this.state.size), moves: 0 });
   },
 
-  buildBoard: function(size, cb) {
-    var board = [];
+  buildBoard(size, cb) {
+    let board = [];
 
-    for (var row = 0; row < size; row++) {
+    for (let row = 0; row < size; row++) {
       board.push([]);
 
-      for (var col = 0; col < size; col++) {
+      for (let col = 0; col < size; col++) {
         board[row].push(cb(board, row, col));
       }
     }
@@ -30,14 +30,14 @@ module.exports = React.createClass({
     return board;
   },
 
-  randomBoard: function(size) {
+  randomBoard(size) {
     return this.buildBoard(size, function(board, row, col) {
       return Math.random() > 0.5;
     });
   },
 
-  adjacent: function(row1, col1, row2, col2) {
-    var rows = Math.abs(row1 - row2),
+  adjacent(row1, col1, row2, col2) {
+    let rows = Math.abs(row1 - row2),
         cols = Math.abs(col1 - col2);
 
     return (rows == 0 && cols == 0)
@@ -45,14 +45,14 @@ module.exports = React.createClass({
         || (rows == 0 && cols == 1);
   },
 
-  lightClicked: function(row, col) {
-    var oldData = this.state.data,
+  lightClicked(row, col) {
+    let oldData = this.state.data,
         toggle  = this.adjacent,
         victory = true,
         newData;
 
     newData = this.buildBoard(this.state.size, function(board, r, c) {
-      var lit = oldData[r][c] ^ toggle(row, col, r, c);
+      let lit = oldData[r][c] ^ toggle(row, col, r, c);
       if (lit) { victory = false; }
       return lit;
     });
@@ -64,18 +64,18 @@ module.exports = React.createClass({
     }
   },
 
-  toggleSize: function() {
-    var state = { victory: false, moves: 0 };
+  toggleSize() {
+    let state = { victory: false, moves: 0 };
     state.size = (this.state.size == 3) ? 5 : 3;
     state.data = this.randomBoard(state.size);
     this.setState(state);
   },
 
-  render: function() {
-    var rows    = [],
+  render() {
+    let rows    = [],
         classes = (this.state.victory) ? "victory" : "in-progress"
 
-    for (var row = 0; row < this.state.size; row++) {
+    for (let row = 0; row < this.state.size; row++) {
       rows.push(<Row
                   lights={ this.state.data[row] }
                   number={ row }

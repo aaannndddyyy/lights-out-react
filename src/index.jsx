@@ -1,5 +1,5 @@
-var React = require("react");
-var Board = require("./board");
+let React = require("react");
+let Board = require("./board");
 
 React.render(
   <Board />,

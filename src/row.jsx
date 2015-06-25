@@ -1,11 +1,11 @@
-var React = require("react");
-var Light = require("./light");
+let React = require("react");
+let Light = require("./light");
 
 module.exports = React.createClass({
-  render: function() {
-    var lights = [], light;
+  render() {
+    let lights = [], light;
 
-    for (var col = 0; col < this.props.lights.length; col++) {
+    for (let col = 0; col < this.props.lights.length; col++) {
       light = <Light
                 lit={ this.props.lights[col] }
                 row={ this.props.number }
