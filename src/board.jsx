@@ -1,49 +1,8 @@
-var Light = React.createClass({
-  clicked: function() {
-    this.props.clickHandler(this.props.row, this.props.col);
-  },
+var React         = require("react");
+var Row           = require("./row");
+var VictoryButton = require("./victoryButton");
 
-  render: function() {
-    var classes="light ";
-    classes += (this.props.lit) ? "light-lit" : "light-unlit";
-
-    return (
-      <span className={ classes } onClick={ this.clicked } />
-    )
-  }
-});
-
-var Row = React.createClass({
-  render: function() {
-    var lights = [], light;
-
-    for (var col = 0; col < this.props.lights.length; col++) {
-      light = <Light
-                lit={ this.props.lights[col] }
-                row={ this.props.number }
-                col={ col }
-                clickHandler={ this.props.clickHandler } />;
-
-      lights.push(light);
-    }
-
-    return (
-      <div className="row">
-        { lights }
-      </div>
-    );
-  }
-})
-
-var VictoryButton = React.createClass({
-  render: function() {
-    return (
-      <div className="victory-button" onClick={ this.props.clickHandler }>VICTORY</div>
-    )
-  }
-});
-
-var Board = React.createClass({
+module.exports = React.createClass({
   getInitialState: function() {
     return {
       victory : false,
@@ -124,8 +83,3 @@ var Board = React.createClass({
     );
   }
 });
-
-React.render(
-  <Board size={ 3 } />,
-  document.getElementById('content')
-);

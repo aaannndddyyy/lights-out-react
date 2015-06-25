@@ -1,0 +1,27 @@
+{
+  "name": "lights-out-react",
+  "version": "0.0.0",
+  "description": "See [Lights Out Programming Challenge](https://github.com/vigetlabs/lights-out) for an explaination of how the Lights Out game works.",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dce/lights-out-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dce/lights-out-react/issues"
+  },
+  "homepage": "https://github.com/dce/lights-out-react",
+  "devDependencies": {
+    "jsx-loader": "^0.13.2",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.9.12"
+  },
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}
