@@ -89,6 +89,8 @@ module.exports = React.createClass({
           <span>Moves: { this.state.moves }</span>
           <span> | </span>
           <span><a onClick={ this.toggleSize }>{ this.state.size }{ String.fromCharCode(215) }{ this.state.size }</a></span>
+          <span> | </span>
+          <span><a onClick={ this.reset }>Reset</a></span>
         </p>
 
         <VictoryButton clickHandler={ this.reset } />
