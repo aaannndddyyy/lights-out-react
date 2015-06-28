@@ -14,7 +14,11 @@ module.exports = React.createClass({
   },
 
   reset() {
-    this.setState({ victory: false, data: this.randomBoard(this.state.size), moves: 0 });
+    this.setState({
+      victory : false,
+      data    : this.randomBoard(this.state.size),
+      moves   : 0
+    });
   },
 
   buildBoard(size, cb) {
@@ -24,45 +28,50 @@ module.exports = React.createClass({
       board.push([]);
 
       for (let col = 0; col < size; col++) {
-        board[row].push(cb(board, row, col));
+        board[row].push(cb(row, col));
       }
     }
 
     return board;
   },
 
-  randomBoard(size) {
-    return this.buildBoard(size, function(board, row, col) {
-      return Math.random() > 0.5;
+  applyMove(board, row, col, cb = lit => {}) {
+    let adjacent = function(r, c) {
+      let rows = Math.abs(row - r),
+          cols = Math.abs(col - c);
+
+      return (rows == 0 && cols == 0)
+          || (rows == 1 && cols == 0)
+          || (rows == 0 && cols == 1);
+    };
+
+    return this.buildBoard(board.length, function(r, c) {
+      let lit = board[r][c] ^ adjacent(r, c);
+      cb(lit);
+      return lit;
     });
   },
 
-  adjacent(row1, col1, row2, col2) {
-    let rows = Math.abs(row1 - row2),
-        cols = Math.abs(col1 - col2);
+  randomBoard(size) {
+    let board    = this.buildBoard(size, (r, c) => false),
+        randMove = () => Math.floor(Math.random() * size),
+        iters    = Math.floor(Math.random() * 100);
 
-    return (rows == 0 && cols == 0)
-        || (rows == 1 && cols == 0)
-        || (rows == 0 && cols == 1);
+    for (let iter = 0; iter < iters; iter++) {
+      board = this.applyMove(board, randMove(), randMove());
+    }
+
+    return board;
   },
 
   lightClicked(row, col) {
-    let oldData = this.state.data,
-        toggle  = this.adjacent,
-        victory = true,
-        newData;
+    let victory = true;
 
-    newData = this.buildBoard(this.state.size, function(board, r, c) {
-      let lit = oldData[r][c] ^ toggle(row, col, r, c);
-      if (lit) { victory = false; }
-      return lit;
+    this.setState({
+      data    : this.applyMove(this.state.data, row, col, lit => { if (lit) victory = false }),
+      victory : victory,
+      moves   : this.state.moves + 1
     });
-
-    if (victory) {
-      this.setState({ victory: true, data: newData, moves: this.state.moves + 1 });
-    } else {
-      this.setState({ data: newData, moves: this.state.moves + 1 });
-    }
   },
 
   toggleSize() {
