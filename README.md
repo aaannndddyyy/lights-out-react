@@ -5,7 +5,7 @@ See [Lights Out Programming Challenge](https://github.com/vigetlabs/lights-out) 
 Your challenge is to build a playable Lights Out board in the browser using React.
 
 ## Demo
-![Demo](http://i.imgur.com/YnFHQGZ.gif)
+![Demo](http://i.imgur.com/1cei9zh.gif)
 
 ## Goals
 
