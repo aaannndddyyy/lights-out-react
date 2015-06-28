@@ -1,4 +1,5 @@
 let React         = require("react");
+let Menu          = require("./menu");
 let Row           = require("./row");
 let VictoryButton = require("./victoryButton");
 
@@ -85,13 +86,12 @@ module.exports = React.createClass({
     return (
       <div className={ classes }>
         { rows }
-        <p>
-          <span>Moves: { this.state.moves }</span>
-          <span> | </span>
-          <span><a onClick={ this.toggleSize }>{ this.state.size }{ String.fromCharCode(215) }{ this.state.size }</a></span>
-          <span> | </span>
-          <span><a onClick={ this.reset }>Reset</a></span>
-        </p>
+
+        <Menu
+          moves={ this.state.moves }
+          size={ this.state.size }
+          toggleSize={ this.toggleSize }
+          reset={ this.reset } />
 
         <VictoryButton clickHandler={ this.reset } />
       </div>
